@@ -1,22 +1,78 @@
 import './App.css';
 import { handleInitialData } from './actions/shared'
-import { useEffect } from "react";
 import { connect } from "react-redux";
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Signin from './components/signin';
+import Home from './components/home';
+import PrivateRoute from './components/privateRoute';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import PollDetail from './components/pollDetail';
+import Leaderboard from './components/leaderboard';
+import Navbar from './components/navbar';
+import CreatePoll from './components/createPoll';
+
 
 
 
 const App = (props) => {
+  const dispatch = useDispatch();
+  const authedUser = useSelector(state => state.authedUser);
+
   useEffect(() => {
     props.dispatch(handleInitialData());
   }, []);
 
-
   return (
+
     <div className="App">
-      Hello World!
+        <Navbar />
+
+        <Routes>
+          <Route path="/signin" element={<Signin />} />
+          <Route
+            path="/home"
+            element={
+              <PrivateRoute authedUser={authedUser}>
+                <Home />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/questions/:id"
+            element={
+              <PrivateRoute authedUser={authedUser}>
+                <PollDetail />
+              </PrivateRoute>
+            }
+          />
+           <Route
+            path="/leaderboard"
+            element={
+              <PrivateRoute authedUser={authedUser}>
+                <Leaderboard />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/add"
+            element={
+              <PrivateRoute authedUser={authedUser}>
+                <CreatePoll />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              authedUser ? <Navigate to="/home" replace /> : <Navigate to="/signin" replace />
+            }
+          />
+        </Routes>
     </div>
   );
 }
+
 
 export default connect()(App);
 
