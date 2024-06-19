@@ -1,0 +1,33 @@
+.poll-detail-container {
+    padding: 20px;
+    text-align: center;
+  }
+
+  .poll-detail-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .poll-options {
+    display: flex;
+    justify-content: center;
+  }
+
+  .option {
+    margin: 0 10px;
+  }
+
+  .option button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+
+  .option button:hover {
+    background-color: #0056b3;
+  }

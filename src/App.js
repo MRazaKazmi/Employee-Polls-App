@@ -2,7 +2,6 @@ import './App.css';
 import { handleInitialData } from './actions/shared'
 import { connect } from "react-redux";
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import Signin from './components/signin';
 import Home from './components/home';
 import PrivateRoute from './components/privateRoute';
@@ -11,13 +10,16 @@ import PollDetail from './components/pollDetail';
 import Leaderboard from './components/leaderboard';
 import Navbar from './components/navbar';
 import CreatePoll from './components/createPoll';
+import { useDispatch, useSelector } from 'react-redux';
 
-const App = (props) => {
+const App = () => {
+  const dispatch = useDispatch();
   const authedUser = useSelector(state => state.authedUser);
 
-  useEffect((props) => {
-    props.dispatch(handleInitialData());
-  }, []);
+  useEffect(() => {
+    dispatch(handleInitialData());
+  }, [dispatch]);
+
 
   return (
 
@@ -68,6 +70,10 @@ const App = (props) => {
   );
 }
 
+const mapStateToProps = (state) => ({
+  authedUser: state.authedUser,
+});
 
-export default connect()(App);
+
+export default connect(mapStateToProps)(App);
 
