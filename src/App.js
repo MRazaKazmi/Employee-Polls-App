@@ -2,24 +2,20 @@ import './App.css';
 import { handleInitialData } from './actions/shared'
 import { connect } from "react-redux";
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Signin from './components/signin';
 import Home from './components/home';
 import PrivateRoute from './components/privateRoute';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import PollDetail from './components/pollDetail';
 import Leaderboard from './components/leaderboard';
 import Navbar from './components/navbar';
 import CreatePoll from './components/createPoll';
 
-
-
-
 const App = (props) => {
-  const dispatch = useDispatch();
   const authedUser = useSelector(state => state.authedUser);
 
-  useEffect(() => {
+  useEffect((props) => {
     props.dispatch(handleInitialData());
   }, []);
 
@@ -27,7 +23,6 @@ const App = (props) => {
 
     <div className="App">
         <Navbar />
-
         <Routes>
           <Route path="/signin" element={<Signin />} />
           <Route
