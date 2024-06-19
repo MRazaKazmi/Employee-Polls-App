@@ -21,9 +21,9 @@ const Leaderboard = ({ users }) => {
   userStats.sort((a, b) => b.answeredCount + b.createdCount - (a.answeredCount + a.createdCount));
 
   return (
-    <div>
-      <h2>Leaderboard</h2>
-      <table>
+    <div className="leaderboard-container">
+      <h1>Leaderboard</h1>
+      <table className="leaderboard-table">
         <thead>
           <tr>
             <th>User</th>
@@ -34,9 +34,11 @@ const Leaderboard = ({ users }) => {
         <tbody>
           {userStats.map(user => (
             <tr key={user.id}>
-              <td>
+                <td>
+                <div className="user-info">
                 <img src={user.avatarURL} alt={`Avatar of ${user.name}`} className="avatar" />
                 <span>{user.name}</span>
+                </div>
               </td>
               <td>{user.answeredCount}</td>
               <td>{user.createdCount}</td>

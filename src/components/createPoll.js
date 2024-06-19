@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { handleAddQuestion } from '../actions/questions';
+import './createPoll.css';
 
-const CreatePoll = ({ dispatch, authedUser }) => {
+const CreatePoll = ({ authedUser, dispatch }) => {
   const [optionOneText, setOptionOneText] = useState('');
   const [optionTwoText, setOptionTwoText] = useState('');
   const navigate = useNavigate();
@@ -15,24 +16,32 @@ const CreatePoll = ({ dispatch, authedUser }) => {
   };
 
   return (
-    <div>
-      <h2>Create a New Poll</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>First Option</label>
+    <div className="create-poll-container">
+      <h1>Create a New Poll</h1>
+      <form onSubmit={handleSubmit} className="create-poll-form">
+        <div className="form-group">
+          <label htmlFor="optionOne">First Option</label>
           <textarea
+            id="optionOne"
             value={optionOneText}
             onChange={(e) => setOptionOneText(e.target.value)}
+            className="textarea"
+            placeholder="Enter first option"
+            required
           />
         </div>
-        <div>
-          <label>Second Option</label>
+        <div className="form-group">
+          <label htmlFor="optionTwo">Second Option</label>
           <textarea
+            id="optionTwo"
             value={optionTwoText}
             onChange={(e) => setOptionTwoText(e.target.value)}
+            className="textarea"
+            placeholder="Enter second option"
+            required
           />
         </div>
-        <button type="submit" disabled={!optionOneText || !optionTwoText}>
+        <button type="submit" className="create-poll-button" disabled={!optionOneText || !optionTwoText}>
           Submit
         </button>
       </form>
@@ -41,7 +50,7 @@ const CreatePoll = ({ dispatch, authedUser }) => {
 };
 
 const mapStateToProps = (state) => ({
-  authedUser: state.authedUser
+  authedUser: state.authedUser,
 });
 
 export default connect(mapStateToProps)(CreatePoll);

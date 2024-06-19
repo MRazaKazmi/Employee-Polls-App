@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import './home.css';
 
 
 const Home = (props) => {
   const { authedUser, questions, users } = props;
-  const navigate = useNavigate();
-
 
   const answeredQuestions = Object.keys(questions)
     .filter(qid =>
@@ -24,30 +23,47 @@ const Home = (props) => {
     )
     .sort((a, b) => questions[b].timestamp - questions[a].timestamp);
 
-    const handleShowPoll = (qid) => {
-        navigate(`/questions/${qid}`);
-        };
-
   return (
-    <div>
-      <h2>Welcome, {users[authedUser].name}</h2>
-      <div>
-        <h3>Answered Questions</h3>
-        <ul>
-          {answeredQuestions.map(qid => (
-            <li key={qid}>{questions[qid].author}
-            <button onClick={() => handleShowPoll(qid)}>Show</button></li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h3>Unanswered Questions</h3>
-        <ul>
-          {unansweredQuestions.map(qid => (
-            <li key={qid}>{questions[qid].author}
-            <button onClick={() => handleShowPoll(qid)}>Show</button></li>
-          ))}
-        </ul>
+    <div className="home-container">
+    <h1>Welcome, {users[authedUser].name}</h1>
+    <div className="questions-wrapper">
+
+    <div className="home-box unanswered-box">
+        <h2>Answered Questions</h2>
+        {answeredQuestions.length === 0 ? (
+          <p>No answered questions</p>
+        ) : (
+          answeredQuestions.map((qid) => (
+            <div key={qid} className="question-box">
+              <p>{questions[qid].author} asks:</p>
+              <p>Would you rather</p>
+              <p>{questions[qid].optionOne.text} or...</p>
+              <Link to={`/questions/${qid}`}>
+                <button>Show</button>
+              </Link>
+            </div>
+          ))
+        )}
+        </div>
+
+        <div className="home-box answered-box">
+          <h2>Unanswered Questions</h2>
+          {unansweredQuestions.length === 0 ? (
+            <p>No unanswered questions</p>
+          ) : (
+            unansweredQuestions.map((qid) => (
+              <div key={qid} className="question-box">
+                <p>{questions[qid].author} asks:</p>
+                <p>Would you rather</p>
+                <p>{questions[qid].optionOne.text} or...</p>
+                <Link to={`/questions/${qid}`}>
+                  <button>Show</button>
+                </Link>
+              </div>
+            ))
+          )}
+
+        </div>
       </div>
     </div>
   );
@@ -60,3 +76,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps)(Home);
+
