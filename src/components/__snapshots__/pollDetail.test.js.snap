@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PollDetail matches the snapshot 1`] = `
+<div>
+  <div
+    class="poll-detail-container"
+  >
+    <h2>
+      Would you rather...
+    </h2>
+    <div
+      class="author-info"
+    >
+      <img
+        alt="Author Avatar"
+        class="avatar"
+        src="/path/to/tyler.jpg"
+      />
+      <p>
+        Question by: 
+        Tyler McGinnis
+      </p>
+    </div>
+    <div
+      class="poll-options"
+    >
+      <div
+        class="option"
+      >
+        <button>
+          Build our new application with Javascript
+        </button>
+      </div>
+      <div
+        class="option"
+      >
+        <button>
+          Build our new application with Python
+        </button>
+      </div>
+    </div>
+    <p>
+      Your answer: 
+      optionOne
+    </p>
+  </div>
+</div>
+`;
+
+exports[`PollDetail matches the snapshot when question is not found 1`] = `
+<div>
+  <p>
+    Question not found.
+  </p>
+</div>
+`;
