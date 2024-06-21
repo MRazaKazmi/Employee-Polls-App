@@ -6,8 +6,8 @@ This repository contains code for the second project which is part of Udacity's 
 
 ## Project Usage
 
-To install all the packages: `npm install`
-To run the app in development mode: `npm start`
+- To install all the packages: `npm install`
+- To run the app in development mode: `npm start`
 
 ## Project Author
 Raza Kazmi
