@@ -22,7 +22,7 @@ const Signin = ({ users, dispatch }) => {
         <select
           value={selectedUser || ''}
           onChange={(e) => setSelectedUser(e.target.value)}
-        >
+          data-testid="user-select">
           <option value="" disabled>Select User</option>
           {Object.keys(users).map((id) => (
             <option key={id} value={id}>{users[id].name}</option>
