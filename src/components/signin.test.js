@@ -45,7 +45,7 @@ describe('SignIn', () => {
 
     expect(userSelect.value).toBe('sarahedo');
 
-    const signInButton = getByText('Sign In');
+    const signInButton = getByTestId('sign-in');
     expect(signInButton).not.toBeDisabled();
 
     fireEvent.click(signInButton);

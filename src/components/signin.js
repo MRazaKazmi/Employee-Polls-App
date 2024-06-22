@@ -26,7 +26,7 @@ const Signin = () => {
       <form onSubmit={handleLogin}>
         <select
           value={selectedUser}
-          onChange={(e) => setSelectedUser(e.target.value)}
+          onChange={(e) => setSelectedUser(e.target.value)} data-testid="user-select"
         >
           <option value="" disabled>Select a user</option>
           {Object.keys(users).map((userId) => (
@@ -35,7 +35,7 @@ const Signin = () => {
             </option>
           ))}
         </select>
-        <button type="submit">Sign In</button>
+        <button type="submit" data-testid="sign-in">Sign In</button>
       </form>
     </div>
   );
