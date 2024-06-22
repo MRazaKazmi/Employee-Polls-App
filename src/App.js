@@ -1,16 +1,16 @@
 import './App.css';
-import { handleInitialData } from './actions/shared'
-import { connect } from "react-redux";
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { handleInitialData } from './actions/shared';
 import Signin from './components/signin';
 import Home from './components/home';
-import PrivateRoute from './components/privateRoute';
-import { Routes, Route, Navigate } from 'react-router-dom';
 import PollDetail from './components/pollDetail';
 import Leaderboard from './components/leaderboard';
 import Navbar from './components/navbar';
 import CreatePoll from './components/createPoll';
-import { useDispatch, useSelector } from 'react-redux';
+import NotFound from './components/notFound';
+import PrivateRoute from './components/privateRoute';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,60 +20,22 @@ const App = () => {
     dispatch(handleInitialData());
   }, [dispatch]);
 
-
   return (
-
     <div className="App">
-        <Navbar />
-        <Routes>
-          <Route path="/signin" element={<Signin />} />
-          <Route
-            path="/home"
-            element={
-              <PrivateRoute authedUser={authedUser}>
-                <Home />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/questions/:id"
-            element={
-              <PrivateRoute authedUser={authedUser}>
-                <PollDetail />
-              </PrivateRoute>
-            }
-          />
-           <Route
-            path="/leaderboard"
-            element={
-              <PrivateRoute authedUser={authedUser}>
-                <Leaderboard />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/add"
-            element={
-              <PrivateRoute authedUser={authedUser}>
-                <CreatePoll />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="*"
-            element={
-              authedUser ? <Navigate to="/home" replace /> : <Navigate to="/signin" replace />
-            }
-          />
-        </Routes>
+      <Navbar />
+      <Routes>
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/" element={authedUser ? <Navigate to="/home" /> : <Navigate to="/signin" />} />
+        <Route element={<PrivateRoute authedUser={authedUser} />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/questions/:id" element={<PollDetail />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/add" element={<CreatePoll />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
     </div>
   );
-}
+};
 
-const mapStateToProps = (state) => ({
-  authedUser: state.authedUser,
-});
-
-
-export default connect(mapStateToProps)(App);
-
+export default App;

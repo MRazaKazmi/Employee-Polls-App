@@ -2,21 +2,22 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './leaderboard.css';
 
-
 const Leaderboard = ({ users }) => {
-  const userStats = Object.keys(users).map(userId => {
-    const user = users[userId];
-    const answeredCount = Object.keys(user.answers).length;
-    const createdCount = user.questions.length;
+  const userStats = Object.keys(users)
+    .filter(userId => users[userId].answers && users[userId].questions) // Filter out users without answers or questions
+    .map(userId => {
+      const user = users[userId];
+      const answeredCount = Object.keys(user.answers).length;
+      const createdCount = user.questions.length;
 
-    return {
-      id: user.id,
-      name: user.name,
-      avatarURL: user.avatarURL,
-      answeredCount,
-      createdCount
-    };
-  });
+      return {
+        id: user.id,
+        name: user.name,
+        avatarURL: user.avatarURL,
+        answeredCount,
+        createdCount
+      };
+    });
 
   userStats.sort((a, b) => b.answeredCount + b.createdCount - (a.answeredCount + a.createdCount));
 
@@ -34,10 +35,10 @@ const Leaderboard = ({ users }) => {
         <tbody>
           {userStats.map(user => (
             <tr key={user.id}>
-                <td>
+              <td>
                 <div className="user-info">
-                <img src={user.avatarURL} alt={`Avatar of ${user.name}`} className="avatar" />
-                <span>{user.name}</span>
+                  <img src={user.avatarURL} alt={`Avatar of ${user.name}`} className="avatar" />
+                  <span>{user.name}</span>
                 </div>
               </td>
               <td>{user.answeredCount}</td>

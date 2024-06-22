@@ -1,21 +1,19 @@
-// PrivateRoute.js
 import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-const PrivateRoute = ({ authedUser, children }) => {
+const PrivateRoute = ({ authedUser }) => {
   const location = useLocation();
 
-  if (!authedUser) {
-    // Redirect to sign-in page and save the current location
-    return <Navigate to="/signin" state={{ from: location }} replace />;
-  }
-
-  return children;
+  return authedUser ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/signin" replace state={{ from: location }} />
+  );
 };
 
-const mapStateToProps = ({ authedUser }) => ({
-  authedUser,
+const mapStateToProps = (state) => ({
+  authedUser: state.authedUser,
 });
 
 export default connect(mapStateToProps)(PrivateRoute);
