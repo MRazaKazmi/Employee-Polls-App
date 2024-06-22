@@ -8,6 +8,7 @@ This repository contains code for the second project which is part of Udacity's 
 
 - To install all the packages: `npm install`
 - To run the app in development mode: `npm start`
+- To run the tests: `npm test`
 
 ## Project Author
 Raza Kazmi
