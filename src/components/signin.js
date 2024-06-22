@@ -1,41 +1,44 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { setAuthedUser } from '../actions/authedUser';
-import { useNavigate } from 'react-router-dom';
 import './signin.css';
 
-const Signin = ({ users, dispatch }) => {
-  const [selectedUser, setSelectedUser] = useState(null);
+const Signin = () => {
+  const [selectedUser, setSelectedUser] = useState('');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const users = useSelector((state) => state.users);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(setAuthedUser(selectedUser));
-    navigate('/home');
+    if (selectedUser) {
+      dispatch(setAuthedUser(selectedUser));
+      const { from } = location.state || { from: { pathname: '/home' } };
+      navigate(from);
+    }
   };
 
   return (
     <div className="signin-container">
-      <h1>Welcome to the Employee Poll App</h1>
-      <h2>Please sign in to continue</h2>
+      <h2>Sign In</h2>
       <form onSubmit={handleLogin}>
         <select
-          value={selectedUser || ''}
+          value={selectedUser}
           onChange={(e) => setSelectedUser(e.target.value)}
-          data-testid="user-select">
-          <option value="" disabled>Select User</option>
-          {Object.keys(users).map((id) => (
-            <option key={id} value={id}>{users[id].name}</option>
+        >
+          <option value="" disabled>Select a user</option>
+          {Object.keys(users).map((userId) => (
+            <option key={userId} value={userId}>
+              {users[userId].name}
+            </option>
           ))}
         </select>
-        <button type="submit" disabled={!selectedUser}>Sign In</button>
+        <button type="submit">Sign In</button>
       </form>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({
-  users: state.users,
-});
-
-export default connect(mapStateToProps)(Signin);
+export default Signin;
