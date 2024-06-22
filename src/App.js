@@ -9,7 +9,6 @@ import PollDetail from './components/pollDetail';
 import Leaderboard from './components/leaderboard';
 import Navbar from './components/navbar';
 import CreatePoll from './components/createPoll';
-import NotFound from './components/notFound';
 import PrivateRoute from './components/privateRoute';
 
 const App = () => {
@@ -31,7 +30,6 @@ const App = () => {
           <Route path="/questions/:id" element={<PollDetail />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/add" element={<CreatePoll />} />
-          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </div>
