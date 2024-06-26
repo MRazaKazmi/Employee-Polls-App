@@ -25,7 +25,7 @@ This repository contains code for the second project in Udacity's React Nanodegr
 
 - To install all the packages: `npm install`
 - To run the app in development mode: `npm start`
-- To run the tests: `npm test`
+- To run all the tests: `npm test`
 
 ## Project Author
 Raza Kazmi
